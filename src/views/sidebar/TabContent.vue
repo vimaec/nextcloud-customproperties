@@ -4,11 +4,6 @@
 			<h3>{{ t('customproperties', 'Custom Properties') }}</h3>
 			<PropertyList :properties="properties.knownProperties" @propertyChanged="updateProperty($event)" />
 			<EmptyPropertiesPlaceholder v-if="properties.knownProperties.length === 0" />
-
-			<template v-if="properties.otherProperties.length > 0">
-				<h3>{{ t('customproperties', 'WebDAV properties') }}</h3>
-				<PropertyList :disabled="true" :properties="properties.otherProperties" />
-			</template>
 		</div>
 	</div>
 </template>
