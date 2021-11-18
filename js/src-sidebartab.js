@@ -6979,6 +6979,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
 
+  computed: {
+    disabled() {
+      if (this.fileInfo_.permissions !== 27 && this.fileInfo_.permissions !== 11 && this.fileInfo_.permissions !== 31) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  },
+
   async mounted() {
     await this.update();
   },
@@ -16521,7 +16532,10 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("PropertyList", {
-          attrs: { properties: _vm.properties.knownProperties },
+          attrs: {
+            properties: _vm.properties.knownProperties,
+            disabled: _vm.disabled
+          },
           on: {
             propertyChanged: function($event) {
               return _vm.updateProperty($event)
@@ -25542,4 +25556,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=src-sidebartab.js.map?v=cf8cebfe14f14af97339
+//# sourceMappingURL=src-sidebartab.js.map?v=cd249065b0a6e605b660

@@ -2,7 +2,7 @@
 	<div :class="{ 'icon-loading': loading }">
 		<div v-show="!loading">
 			<h3>{{ t('customproperties', 'Custom Properties') }}</h3>
-			<PropertyList :properties="properties.knownProperties" @propertyChanged="updateProperty($event)" />
+			<PropertyList :properties="properties.knownProperties" :disabled="disabled" @propertyChanged="updateProperty($event)" />
 			<EmptyPropertiesPlaceholder v-if="properties.knownProperties.length === 0" />
 		</div>
 	</div>
@@ -36,6 +36,15 @@ export default {
 				knownProperties: [],
 				otherProperties: [],
 			},
+		}
+	},
+	computed: {
+		disabled() {
+			if (this.fileInfo_.permissions !== 27 && this.fileInfo_.permissions !== 11 && this.fileInfo_.permissions !== 31) {
+				return true
+			} else {
+				return false
+			}
 		}
 	},
 	async mounted() {
