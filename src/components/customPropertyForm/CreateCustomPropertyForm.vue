@@ -26,8 +26,14 @@ export default {
 				propertyname: null,
 				propertylabel: null,
 				propertytype: 'text',
+				propertycategory: null,
+				propertyisrequired: true
 			},
 		}
+	},
+	props: {
+		category: String
+
 	},
 	methods: {
 		submit(e) {
@@ -37,6 +43,7 @@ export default {
 				showError(this.t('customproperties', 'Cannot create Custom Property. The given input is invalid.'))
 				return
 			}
+			this.property.propertycategory = this.category
 
 			this.$emit('createProperty', this.property)
 			this.property = {

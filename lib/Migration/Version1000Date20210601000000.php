@@ -21,11 +21,15 @@ class Version1000Date20210601000000 extends SimpleMigrationStep
         $schema = $schemaClosure();
         $table = $schema->getTable('customproperties');
 
-        $table->addColumn('propertytype', 'string', [
-            'notnull' => true,
-            'default' => 'text',
-            'length' => 255
-        ]);
+        if(!$table->hasColumn('propertytype')){
+            $table->addColumn('propertytype', 'string', [
+                'notnull' => true,
+                'default' => 'text',
+                'length' => 255
+            ]);
+        }
+
+        
 
         return $schema;
     }

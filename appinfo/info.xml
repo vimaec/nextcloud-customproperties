@@ -32,5 +32,6 @@
     </dependencies>
     <settings>
         <admin>OCA\CustomProperties\Settings\AdminSettings</admin>
+        <personal>OCA\CustomProperties\Settings\PersonalSettings</personal>
     </settings>
 </info>

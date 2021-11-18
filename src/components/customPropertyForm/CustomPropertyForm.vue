@@ -36,6 +36,12 @@
 				required
 				type="text">
 		</div>
+		<div class="form-check">
+			<input
+				v-model="property_.propertyisrequired"
+				type="checkbox">
+			<label>Required</label>
+		</div>
 	</div>
 </template>
 
@@ -67,7 +73,8 @@ export default {
 				{ name: 'Month', value: 'month' },
 				{ name: 'Time', value: 'time' },
 				{ name: 'Number', value: 'number' },
-			],
+				{ name: 'Text Area', value: 'textarea' },
+			]
 		}
 	},
 	computed: {
@@ -98,7 +105,7 @@ export default {
   }
 
   &__propertyname {
-    flex: 0 0 50px;
+    flex: 0 0 150px;
   }
 
   &__propertylabel {

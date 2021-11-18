@@ -36,9 +36,9 @@ class CustomPropertiesController extends Controller
      * @NoCSRFRequired
      * @return JSONResponse
      */
-    public function index(): JSONResponse
+    public function index(string $category='Rest'): JSONResponse
     {
-        $entities = $this->customPropertiesMapper->findAll();
+        $entities = $this->customPropertiesMapper->findAll($category);
         return new JSONResponse($entities);
     }
 
@@ -53,6 +53,8 @@ class CustomPropertiesController extends Controller
         $newCustomProperty->setPropertyname($customProperty['propertyname']);
         $newCustomProperty->setPropertylabel($customProperty['propertylabel']);
         $newCustomProperty->setPropertytype($customProperty['propertytype']);
+        $newCustomProperty->setPropertycategory($customProperty['propertycategory']);
+        $newCustomProperty->setPropertyisrequired($customProperty['propertyisrequired']);
 
         if (!$newCustomProperty->isValid()) {
             throw new CustomPropertyInvalidError();
@@ -72,6 +74,7 @@ class CustomPropertiesController extends Controller
 
         $entity->setPropertyname($customProperty['propertyname']);
         $entity->setPropertylabel($customProperty['propertylabel']);
+        $entity->setPropertyisrequired($customProperty['propertyisrequired']);
 
         if (!$entity->isValid()) {
             throw new CustomPropertyInvalidError();

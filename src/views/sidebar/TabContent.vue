@@ -1,14 +1,8 @@
 <template>
 	<div :class="{ 'icon-loading': loading }">
 		<div v-show="!loading">
-			<h3>{{ t('customproperties', 'Custom Properties') }}</h3>
-			<PropertyList :properties="properties.knownProperties" @propertyChanged="updateProperty($event)" />
+			<PropertyList :properties="properties.knownProperties" :disabled="disabled" @propertyChanged="updateProperty($event)" />
 			<EmptyPropertiesPlaceholder v-if="properties.knownProperties.length === 0" />
-
-			<template v-if="properties.otherProperties.length > 0">
-				<h3>{{ t('customproperties', 'WebDAV properties') }}</h3>
-				<PropertyList :disabled="true" :properties="properties.otherProperties" />
-			</template>
 		</div>
 	</div>
 </template>
@@ -43,6 +37,15 @@ export default {
 			},
 		}
 	},
+	computed: {
+		disabled() {
+			if (this.fileInfo_.permissions !== 27 && this.fileInfo_.permissions !== 11 && this.fileInfo_.permissions !== 31) {
+				return true
+			} else {
+				return false
+			}
+		}
+	},
 	async mounted() {
 		await this.update()
 	},
@@ -58,7 +61,15 @@ export default {
 				this.loading = true
 
 				const properties = await this.retrieveProps(this.fileInfo_)
-				const customProperties = await this.retrieveCustomProperties()
+				let specialProperty = 'Rest'
+				properties.forEach(element => {
+					if (element.propertyname === 'oc:vimfilecategoryproperty') {
+						specialProperty = element.propertyvalue
+
+					}
+				})
+
+				const customProperties = await this.retrieveCustomProperties(specialProperty)
 				const customPropertyNames = customProperties.map(cp => `${cp.prefix}:${cp.propertyname}`)
 
 				this.properties.knownProperties = customProperties.map(cp => {
@@ -83,9 +94,9 @@ export default {
 				this.loading = false
 			}
 		},
-		async retrieveCustomProperties() {
+		async retrieveCustomProperties(category) {
 			try {
-				const customPropertiesUrl = generateUrl('/apps/customproperties/customproperties')
+				const customPropertiesUrl = generateUrl('/apps/customproperties/customproperties?category=' + category)
 				const customPropertiesResponse = await axios.get(customPropertiesUrl)
 				return customPropertiesResponse.data
 			} catch (e) {
@@ -111,6 +122,11 @@ export default {
 			}
 		},
 		async updateProperty(property) {
+			if (property.propertyisrequired === true && property.propertyvalue === '') {
+				OC.Notification.show('Required field cannot be empty', { type: 'error' })
+				return
+
+			}
 			const uid = getCurrentUser().uid
 			const path = `/files/${uid}/${this.fileInfo_.path}/${this.fileInfo_.name}`.replace(/\/+/ig, '/')
 			const url = generateRemoteUrl('dav') + path

@@ -99,14 +99,15 @@ class CustomPropertiesSabreServerPlugin extends ServerPlugin
         if (!($node instanceof INode)) {
             return;
         }
+        $path= $node->getFileId() . $node->getPath();
 
         $propPatch->handle($this->getCustomPropertynames(), function ($a) use ($path) {
             try {
                 foreach ($a as $key => $value) {
                     if (!empty(trim($value))) {
-                        $this->propertyService->upsertProperty($path, $key, $value, $this->userId);
+                        $this->propertyService->upsertProperty($path, $key, $value, 'Admin');
                     } else {
-                        $this->propertyService->deleteProperty($path, $key, $this->userId);
+                        $this->propertyService->deleteProperty($path, $key, 'Admin');
                     }
                 }
                 return true;
@@ -122,8 +123,13 @@ class CustomPropertiesSabreServerPlugin extends ServerPlugin
      */
     private function handlePropFindAllProps(PropFind $propFind, string $path): void
     {
+        $node = $this->server->tree->getNodeForPath($path);
+        if (!($node instanceof INode)){
+            return;
+        }
+        $path= $node->getFileId() . $node->getPath();
         foreach ($this->getCustomPropertynames() as $propertyname) {
-            $entity = $this->propertyService->getCustomProperty($path, $propertyname, $this->userId);
+            $entity = $this->propertyService->getCustomProperty($path, $propertyname, 'Admin');
             $value = $entity === null ? null : $entity->propertyvalue;
 
             $propFind->set($propertyname, $value);
@@ -136,9 +142,14 @@ class CustomPropertiesSabreServerPlugin extends ServerPlugin
      */
     private function handlePropFind(PropFind $propFind, string $path): void
     {
+        $node = $this->server->tree->getNodeForPath($path);
+        if (!($node instanceof INode)){
+            return;
+        }
+        $path= $node->getFileId() . $node->getPath();
         foreach ($this->getCustomPropertynames() as $propertyname) {
             $propFind->handle($propertyname, function () use ($path, $propertyname) {
-                return $this->propertyService->getCustomProperty($path, $propertyname, $this->userId);
+                return $this->propertyService->getCustomProperty($path, $propertyname, 'Admin');
             });
         }
     }
