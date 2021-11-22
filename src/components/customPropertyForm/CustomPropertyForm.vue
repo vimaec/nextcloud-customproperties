@@ -67,6 +67,7 @@ export default {
 				{ name: 'Month', value: 'month' },
 				{ name: 'Time', value: 'time' },
 				{ name: 'Number', value: 'number' },
+				{ name: 'Text Area', value: 'textarea' },
 			],
 		}
 	},

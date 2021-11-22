@@ -7172,6 +7172,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PropertyTextInput',
   model: {
@@ -16651,9 +16660,9 @@ var render = function() {
       _vm._v(_vm._s(_vm.property_.propertylabel))
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "customproperty-input-group" }, [
-      _vm.property_.propertytype === "checkbox"
-        ? _c("input", {
+    _vm.property_.propertytype === "textarea"
+      ? _c("div", { staticClass: "customproperty-input-group" }, [
+          _c("textarea", {
             directives: [
               {
                 name: "model",
@@ -16664,89 +16673,9 @@ var render = function() {
             ],
             staticClass: "customproperty-form-control",
             attrs: {
-              id: "property_" + _vm.property_.propertyname,
-              "aria-disabled": _vm.disabled,
-              disabled: _vm.disabled,
+              id: "textproperty_" + _vm.property_.propertyname,
               name: _vm.property_.propertyname,
-              type: "checkbox"
-            },
-            domProps: {
-              checked: Array.isArray(_vm.property_.propertyvalue)
-                ? _vm._i(_vm.property_.propertyvalue, null) > -1
-                : _vm.property_.propertyvalue
-            },
-            on: {
-              blur: _vm.blur,
-              change: function($event) {
-                var $$a = _vm.property_.propertyvalue,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(
-                        _vm.property_,
-                        "propertyvalue",
-                        $$a.concat([$$v])
-                      )
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.property_,
-                        "propertyvalue",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.property_, "propertyvalue", $$c)
-                }
-              }
-            }
-          })
-        : _vm.property_.propertytype === "radio"
-        ? _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.property_.propertyvalue,
-                expression: "property_.propertyvalue"
-              }
-            ],
-            staticClass: "customproperty-form-control",
-            attrs: {
-              id: "property_" + _vm.property_.propertyname,
-              "aria-disabled": _vm.disabled,
-              disabled: _vm.disabled,
-              name: _vm.property_.propertyname,
-              type: "radio"
-            },
-            domProps: { checked: _vm._q(_vm.property_.propertyvalue, null) },
-            on: {
-              blur: _vm.blur,
-              change: function($event) {
-                return _vm.$set(_vm.property_, "propertyvalue", null)
-              }
-            }
-          })
-        : _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.property_.propertyvalue,
-                expression: "property_.propertyvalue"
-              }
-            ],
-            staticClass: "customproperty-form-control",
-            attrs: {
-              id: "property_" + _vm.property_.propertyname,
-              "aria-disabled": _vm.disabled,
-              disabled: _vm.disabled,
-              name: _vm.property_.propertyname,
-              type: _vm.property_.propertytype
+              rows: "6"
             },
             domProps: { value: _vm.property_.propertyvalue },
             on: {
@@ -16759,7 +16688,122 @@ var render = function() {
               }
             }
           })
-    ])
+        ])
+      : _c("div", { staticClass: "customproperty-input-group" }, [
+          _vm.property_.propertytype === "checkbox"
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.property_.propertyvalue,
+                    expression: "property_.propertyvalue"
+                  }
+                ],
+                staticClass: "customproperty-form-control",
+                attrs: {
+                  id: "property_" + _vm.property_.propertyname,
+                  "aria-disabled": _vm.disabled,
+                  disabled: _vm.disabled,
+                  name: _vm.property_.propertyname,
+                  type: "checkbox"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.property_.propertyvalue)
+                    ? _vm._i(_vm.property_.propertyvalue, null) > -1
+                    : _vm.property_.propertyvalue
+                },
+                on: {
+                  blur: _vm.blur,
+                  change: function($event) {
+                    var $$a = _vm.property_.propertyvalue,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.property_,
+                            "propertyvalue",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.property_,
+                            "propertyvalue",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.property_, "propertyvalue", $$c)
+                    }
+                  }
+                }
+              })
+            : _vm.property_.propertytype === "radio"
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.property_.propertyvalue,
+                    expression: "property_.propertyvalue"
+                  }
+                ],
+                staticClass: "customproperty-form-control",
+                attrs: {
+                  id: "property_" + _vm.property_.propertyname,
+                  "aria-disabled": _vm.disabled,
+                  disabled: _vm.disabled,
+                  name: _vm.property_.propertyname,
+                  type: "radio"
+                },
+                domProps: {
+                  checked: _vm._q(_vm.property_.propertyvalue, null)
+                },
+                on: {
+                  blur: _vm.blur,
+                  change: function($event) {
+                    return _vm.$set(_vm.property_, "propertyvalue", null)
+                  }
+                }
+              })
+            : _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.property_.propertyvalue,
+                    expression: "property_.propertyvalue"
+                  }
+                ],
+                staticClass: "customproperty-form-control",
+                attrs: {
+                  id: "property_" + _vm.property_.propertyname,
+                  "aria-disabled": _vm.disabled,
+                  disabled: _vm.disabled,
+                  name: _vm.property_.propertyname,
+                  type: _vm.property_.propertytype
+                },
+                domProps: { value: _vm.property_.propertyvalue },
+                on: {
+                  blur: _vm.blur,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.property_,
+                      "propertyvalue",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+        ])
   ])
 }
 var staticRenderFns = []
@@ -25556,4 +25600,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=src-sidebartab.js.map?v=cd249065b0a6e605b660
+//# sourceMappingURL=src-sidebartab.js.map?v=dcb403c3f180bd2ad40e

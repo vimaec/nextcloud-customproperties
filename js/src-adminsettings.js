@@ -13560,6 +13560,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: 'Number',
         value: 'number'
+      }, {
+        name: 'Text Area',
+        value: 'textarea'
       }]
     };
   },
@@ -33869,4 +33872,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=338cd6cbd95291c8cd70
+//# sourceMappingURL=src-adminsettings.js.map?v=c1cb2252b6c78ae4a2e9

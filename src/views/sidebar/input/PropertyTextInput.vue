@@ -2,7 +2,16 @@
 	<div class="customproperty-form-group">
 		<label :for="'property_'+property_.propertyname">{{ property_.propertylabel }}</label>
 
-		<div class="customproperty-input-group">
+		<div v-if="property_.propertytype === 'textarea'" class="customproperty-input-group">
+			<textarea :id="'textproperty_'+property_.propertyname"
+				v-model="property_.propertyvalue"
+				:name="property_.propertyname"
+				class="customproperty-form-control"
+				rows="6"
+				@blur="blur"></textarea>
+		</div>
+
+		<div v-else class="customproperty-input-group">
 			<input :id="'property_'+property_.propertyname"
 				v-model="property_.propertyvalue"
 				:aria-disabled="disabled"
