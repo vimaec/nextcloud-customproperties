@@ -13420,11 +13420,15 @@ __webpack_require__.r(__webpack_exports__);
         id: null,
         propertyname: null,
         propertylabel: null,
-        propertytype: 'text'
+        propertytype: 'text',
+        propertycategory: null
       }
     };
   },
 
+  props: {
+    category: String
+  },
   methods: {
     submit(e) {
       e.preventDefault();
@@ -13434,6 +13438,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      this.property.propertycategory = this.category;
       this.$emit('createProperty', this.property);
       this.property = {
         propertyname: null,
@@ -13735,6 +13740,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13755,7 +13802,9 @@ __webpack_require__.r(__webpack_exports__);
       icon: 'icon-info',
       loading: true,
       name: t('customproperties', 'Properties'),
-      properties: []
+      clubproperties: [],
+      projectproperties: [],
+      restproperties: []
     };
   },
 
@@ -13778,7 +13827,13 @@ __webpack_require__.r(__webpack_exports__);
     async getDataFromApi() {
       const url = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties');
       const res = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url);
-      this.properties = res.data;
+      this.restproperties = res.data;
+      const url1 = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties?category=Club');
+      const res1 = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url1);
+      this.clubproperties = res1.data;
+      const url2 = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties?category=Project');
+      const res2 = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url2);
+      this.projectproperties = res2.data;
     },
 
     async deleteProperty(id) {
@@ -23170,7 +23225,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
-    _c("h2", [_vm._v(_vm._s(_vm.t("customproperties", "Custom Properties")))]),
+    _c("h2", [_vm._v("Club Custom Properties")]),
     _vm._v(" "),
     _c("p", { staticClass: "settings-hint" }, [
       _vm._v(
@@ -23189,14 +23244,105 @@ var render = function() {
       "div",
       [
         _c("CreateCustomPropertyForm", {
+          attrs: { category: "Club" },
           on: { createProperty: _vm.createProperty }
         }),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _vm.properties.length > 0
+        _vm.clubproperties.length > 0
           ? [
-              _vm._l(_vm.properties, function(property) {
+              _vm._l(_vm.clubproperties, function(property) {
+                return [
+                  _c("EditCustomPropertyForm", {
+                    key: property.id,
+                    attrs: { property: property },
+                    on: {
+                      deleteProperty: _vm.deleteProperty,
+                      updateProperty: _vm.updateProperty
+                    }
+                  })
+                ]
+              })
+            ]
+          : _c("EmptyPropertiesPlaceholder")
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Project Custom Properties")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "settings-hint" }, [
+      _vm._v(
+        "\n\t\t" +
+          _vm._s(
+            _vm.t(
+              "customproperties",
+              'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.'
+            )
+          ) +
+          "\n\t"
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c("CreateCustomPropertyForm", {
+          attrs: { category: "Project" },
+          on: { createProperty: _vm.createProperty }
+        }),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _vm.projectproperties.length > 0
+          ? [
+              _vm._l(_vm.projectproperties, function(property) {
+                return [
+                  _c("EditCustomPropertyForm", {
+                    key: property.id,
+                    attrs: { property: property },
+                    on: {
+                      deleteProperty: _vm.deleteProperty,
+                      updateProperty: _vm.updateProperty
+                    }
+                  })
+                ]
+              })
+            ]
+          : _c("EmptyPropertiesPlaceholder")
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Rest Custom Properties")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "settings-hint" }, [
+      _vm._v(
+        "\n\t\t" +
+          _vm._s(
+            _vm.t(
+              "customproperties",
+              'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.'
+            )
+          ) +
+          "\n\t"
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c("CreateCustomPropertyForm", {
+          attrs: { category: "Rest" },
+          on: { createProperty: _vm.createProperty }
+        }),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _vm.restproperties.length > 0
+          ? [
+              _vm._l(_vm.restproperties, function(property) {
                 return [
                   _c("EditCustomPropertyForm", {
                     key: property.id,
@@ -33872,4 +34018,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=c1cb2252b6c78ae4a2e9
+//# sourceMappingURL=src-adminsettings.js.map?v=44df7999c1cc3d0b54c1

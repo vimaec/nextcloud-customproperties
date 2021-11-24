@@ -1,17 +1,59 @@
 <template>
 	<section class="section">
-		<h2>{{ t('customproperties', 'Custom Properties') }}</h2>
+		<h2>Club Custom Properties</h2>
 		<p class="settings-hint">
 			{{
 				t('customproperties', 'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.')
 			}}
 		</p>
 		<div>
-			<CreateCustomPropertyForm @createProperty="createProperty" />
+			<CreateCustomPropertyForm @createProperty="createProperty" category="Club" />
 
 			<hr>
-			<template v-if="properties.length > 0">
-				<template v-for="property in properties">
+			<template v-if="clubproperties.length > 0">
+				<template v-for="property in clubproperties">
+					<EditCustomPropertyForm :key="property.id"
+						:property="property"
+						@deleteProperty="deleteProperty"
+						@updateProperty="updateProperty" />
+				</template>
+			</template>
+			<EmptyPropertiesPlaceholder v-else />
+		</div>
+
+		<h2>Project Custom Properties</h2>
+		<p class="settings-hint">
+			{{
+				t('customproperties', 'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.')
+			}}
+		</p>
+		<div>
+			<CreateCustomPropertyForm @createProperty="createProperty" category="Project" />
+
+			<hr>
+			<template v-if="projectproperties.length > 0">
+				<template v-for="property in projectproperties">
+					<EditCustomPropertyForm :key="property.id"
+						:property="property"
+						@deleteProperty="deleteProperty"
+						@updateProperty="updateProperty" />
+				</template>
+			</template>
+			<EmptyPropertiesPlaceholder v-else />
+		</div>
+
+		<h2>Rest Custom Properties</h2>
+		<p class="settings-hint">
+			{{
+				t('customproperties', 'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.')
+			}}
+		</p>
+		<div>
+			<CreateCustomPropertyForm @createProperty="createProperty" category="Rest" />
+
+			<hr>
+			<template v-if="restproperties.length > 0">
+				<template v-for="property in restproperties">
 					<EditCustomPropertyForm :key="property.id"
 						:property="property"
 						@deleteProperty="deleteProperty"
@@ -44,7 +86,9 @@ export default {
 			icon: 'icon-info',
 			loading: true,
 			name: t('customproperties', 'Properties'),
-			properties: [],
+			clubproperties: [],
+			projectproperties: [],
+			restproperties: []
 		}
 	},
 	computed: {
@@ -62,7 +106,15 @@ export default {
 		async getDataFromApi() {
 			const url = generateUrl('/apps/customproperties/customproperties')
 			const res = await axios.get(url)
-			this.properties = res.data
+			this.restproperties = res.data
+
+			const url1 = generateUrl('/apps/customproperties/customproperties?category=Club')
+			const res1 = await axios.get(url1)
+			this.clubproperties = res1.data
+
+			const url2 = generateUrl('/apps/customproperties/customproperties?category=Project')
+			const res2 = await axios.get(url2)
+			this.projectproperties = res2.data
 		},
 		async deleteProperty(id) {
 			const url = generateUrl(`/apps/customproperties/customproperties/${id}`)

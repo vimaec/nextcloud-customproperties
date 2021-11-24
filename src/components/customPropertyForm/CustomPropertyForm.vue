@@ -99,7 +99,7 @@ export default {
   }
 
   &__propertyname {
-    flex: 0 0 50px;
+    flex: 0 0 150px;
   }
 
   &__propertylabel {
