@@ -7007,7 +7007,13 @@ __webpack_require__.r(__webpack_exports__);
       if (!(0,_utils__WEBPACK_IMPORTED_MODULE_2__.isEmptyObject)(this.fileInfo_)) {
         this.loading = true;
         const properties = await this.retrieveProps(this.fileInfo_);
-        const customProperties = await this.retrieveCustomProperties();
+        let specialProperty = 'Rest';
+        properties.forEach(element => {
+          if (element.propertyname === 'oc:vimfilecategoryproperty') {
+            specialProperty = element.propertyvalue;
+          }
+        });
+        const customProperties = await this.retrieveCustomProperties(specialProperty);
         const customPropertyNames = customProperties.map(cp => "".concat(cp.prefix, ":").concat(cp.propertyname));
         this.properties.knownProperties = customProperties.map(cp => {
           const property = properties.find(p => "".concat(cp.prefix, ":").concat(cp.propertyname) === p.propertyname);
@@ -7027,9 +7033,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    async retrieveCustomProperties() {
+    async retrieveCustomProperties(category) {
       try {
-        const customPropertiesUrl = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_3__.generateUrl)('/apps/customproperties/customproperties');
+        const customPropertiesUrl = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_3__.generateUrl)('/apps/customproperties/customproperties?category=' + category);
         const customPropertiesResponse = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_4__.default.get(customPropertiesUrl);
         return customPropertiesResponse.data;
       } catch (e) {
@@ -25600,4 +25606,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=src-sidebartab.js.map?v=dcb403c3f180bd2ad40e
+//# sourceMappingURL=src-sidebartab.js.map?v=2fbe3d5e950a449b0fd8

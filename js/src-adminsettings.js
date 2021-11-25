@@ -17730,7 +17730,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-horizontal .input-group[data-v-518d5a22] {\n  display: flex;\n}\n.propertytype[data-v-518d5a22] {\n  margin-right: 3px;\n}\n.propertytype[data-v-518d5a22], .propertyname[data-v-518d5a22], .propertylabel[data-v-518d5a22] {\n  width: 100%;\n}\n.form-group[data-v-518d5a22] {\n  flex: 1 1 0;\n  margin-right: 3px;\n}\n.form-group__propertytype[data-v-518d5a22] {\n  flex: 0 0 75px;\n}\n.form-group__propertyname[data-v-518d5a22] {\n  flex: 0 0 50px;\n}\n.form-group__propertylabel[data-v-518d5a22] {\n  flex: 4 0 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-horizontal .input-group[data-v-518d5a22] {\n  display: flex;\n}\n.propertytype[data-v-518d5a22] {\n  margin-right: 3px;\n}\n.propertytype[data-v-518d5a22], .propertyname[data-v-518d5a22], .propertylabel[data-v-518d5a22] {\n  width: 100%;\n}\n.form-group[data-v-518d5a22] {\n  flex: 1 1 0;\n  margin-right: 3px;\n}\n.form-group__propertytype[data-v-518d5a22] {\n  flex: 0 0 75px;\n}\n.form-group__propertyname[data-v-518d5a22] {\n  flex: 0 0 150px;\n}\n.form-group__propertylabel[data-v-518d5a22] {\n  flex: 4 0 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34018,4 +34018,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=44df7999c1cc3d0b54c1
+//# sourceMappingURL=src-adminsettings.js.map?v=09e6276f1f31289df5af

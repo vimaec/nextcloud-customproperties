@@ -53,14 +53,26 @@ class CustomPropertiesMapper extends QBMapper
      * @return CustomProperty[]|array
      * @throws \OCP\DB\Exception
      */
-    public function findAll(string $category='Rest'): array
+    public function findAll(string $category='All'): array
     {
         $qb = $this->db->getQueryBuilder();
 
-        $qb->select('*')
+        if($category=='All'){
+
+            $qb->select('*')
+            ->from($this->tableName)
+            ->where($qb->expr()->isNull('user_id'));
+
+        }
+        else
+        {
+
+            $qb->select('*')
             ->from($this->tableName)
             ->where($qb->expr()->isNull('user_id'))
             ->andWhere($qb->expr()->eq('propertycategory' , $qb->createNamedParameter($category)));
+
+        }       
 
         return $this->findEntities($qb);
     }

@@ -62,7 +62,15 @@ export default {
 				this.loading = true
 
 				const properties = await this.retrieveProps(this.fileInfo_)
-				const customProperties = await this.retrieveCustomProperties()
+				let specialProperty = 'Rest'
+				properties.forEach(element => {
+					if (element.propertyname === 'oc:vimfilecategoryproperty') {
+						specialProperty = element.propertyvalue
+
+					}
+				})
+
+				const customProperties = await this.retrieveCustomProperties(specialProperty)
 				const customPropertyNames = customProperties.map(cp => `${cp.prefix}:${cp.propertyname}`)
 
 				this.properties.knownProperties = customProperties.map(cp => {
@@ -87,9 +95,9 @@ export default {
 				this.loading = false
 			}
 		},
-		async retrieveCustomProperties() {
+		async retrieveCustomProperties(category) {
 			try {
-				const customPropertiesUrl = generateUrl('/apps/customproperties/customproperties')
+				const customPropertiesUrl = generateUrl('/apps/customproperties/customproperties?category=' + category)
 				const customPropertiesResponse = await axios.get(customPropertiesUrl)
 				return customPropertiesResponse.data
 			} catch (e) {
