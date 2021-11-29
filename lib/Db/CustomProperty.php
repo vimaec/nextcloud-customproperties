@@ -17,6 +17,8 @@ class CustomProperty extends Entity
     public $propertytype;
     /** @var string */
     public $propertycategory;
+    /** @var bool */
+    public $propertyisrequired;
 
     /**
      * @var string
@@ -31,6 +33,7 @@ class CustomProperty extends Entity
         $this->addType('propertylabel', 'string');
         $this->addType('propertytype', 'string');
         $this->addType('propertycategory', 'string');
+        $this->addType('propertyisrequired', 'bool');
     }
 
     public static function withNamespaceURI($propertyname): string

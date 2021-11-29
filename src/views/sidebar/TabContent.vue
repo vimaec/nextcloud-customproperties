@@ -123,6 +123,11 @@ export default {
 			}
 		},
 		async updateProperty(property) {
+			if (property.propertyisrequired === true && property.propertyvalue === '') {
+				OC.Notification.show('Required field cannot be empty', { type: 'error' })
+				return
+
+			}
 			const uid = getCurrentUser().uid
 			const path = `/files/${uid}/${this.fileInfo_.path}/${this.fileInfo_.name}`.replace(/\/+/ig, '/')
 			const url = generateRemoteUrl('dav') + path

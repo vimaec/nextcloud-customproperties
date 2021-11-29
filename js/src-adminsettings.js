@@ -13421,7 +13421,8 @@ __webpack_require__.r(__webpack_exports__);
         propertyname: null,
         propertylabel: null,
         propertytype: 'text',
-        propertycategory: null
+        propertycategory: null,
+        propertyisrequired: true
       }
     };
   },
@@ -13481,6 +13482,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23108,6 +23115,55 @@ var render = function() {
           }
         }
       })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.property_.propertyisrequired,
+            expression: "property_.propertyisrequired"
+          }
+        ],
+        attrs: { type: "checkbox" },
+        domProps: {
+          checked: Array.isArray(_vm.property_.propertyisrequired)
+            ? _vm._i(_vm.property_.propertyisrequired, null) > -1
+            : _vm.property_.propertyisrequired
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.property_.propertyisrequired,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.property_,
+                    "propertyisrequired",
+                    $$a.concat([$$v])
+                  )
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.property_,
+                    "propertyisrequired",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.property_, "propertyisrequired", $$c)
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", [_vm._v("Required")])
     ])
   ])
 }
@@ -34018,4 +34074,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=09e6276f1f31289df5af
+//# sourceMappingURL=src-adminsettings.js.map?v=be26ed7e67fbb636da3f

@@ -27,6 +27,7 @@ export default {
 				propertylabel: null,
 				propertytype: 'text',
 				propertycategory: null,
+				propertyisrequired: true
 			},
 		}
 	},

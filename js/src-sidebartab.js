@@ -7062,6 +7062,13 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async updateProperty(property) {
+      if (property.propertyisrequired === true && property.propertyvalue === '') {
+        OC.Notification.show('Required field cannot be empty', {
+          type: 'error'
+        });
+        return;
+      }
+
       const uid = (0,_nextcloud_auth__WEBPACK_IMPORTED_MODULE_5__.getCurrentUser)().uid;
       const path = "/files/".concat(uid, "/").concat(this.fileInfo_.path, "/").concat(this.fileInfo_.name).replace(/\/+/ig, '/');
       const url = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_3__.generateRemoteUrl)('dav') + path;
@@ -7161,6 +7168,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -16663,7 +16671,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "customproperty-form-group" }, [
     _c("label", { attrs: { for: "property_" + _vm.property_.propertyname } }, [
-      _vm._v(_vm._s(_vm.property_.propertylabel))
+      _vm._v(_vm._s(_vm.property_.propertylabel)),
+      _vm.property_.propertyisrequired
+        ? _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _vm.property_.propertytype === "textarea"
@@ -16681,6 +16692,7 @@ var render = function() {
             attrs: {
               id: "textproperty_" + _vm.property_.propertyname,
               name: _vm.property_.propertyname,
+              required: _vm.property_.propertyisrequired,
               rows: "6"
             },
             domProps: { value: _vm.property_.propertyvalue },
@@ -16711,6 +16723,7 @@ var render = function() {
                   id: "property_" + _vm.property_.propertyname,
                   "aria-disabled": _vm.disabled,
                   disabled: _vm.disabled,
+                  required: _vm.property_.propertyisrequired,
                   name: _vm.property_.propertyname,
                   type: "checkbox"
                 },
@@ -16764,6 +16777,7 @@ var render = function() {
                   id: "property_" + _vm.property_.propertyname,
                   "aria-disabled": _vm.disabled,
                   disabled: _vm.disabled,
+                  required: _vm.property_.propertyisrequired,
                   name: _vm.property_.propertyname,
                   type: "radio"
                 },
@@ -16791,6 +16805,7 @@ var render = function() {
                   id: "property_" + _vm.property_.propertyname,
                   "aria-disabled": _vm.disabled,
                   disabled: _vm.disabled,
+                  required: _vm.property_.propertyisrequired,
                   name: _vm.property_.propertyname,
                   type: _vm.property_.propertytype
                 },
@@ -25606,4 +25621,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=src-sidebartab.js.map?v=2fbe3d5e950a449b0fd8
+//# sourceMappingURL=src-sidebartab.js.map?v=118ac25699e743928073

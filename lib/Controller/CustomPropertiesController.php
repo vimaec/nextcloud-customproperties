@@ -54,6 +54,7 @@ class CustomPropertiesController extends Controller
         $newCustomProperty->setPropertylabel($customProperty['propertylabel']);
         $newCustomProperty->setPropertytype($customProperty['propertytype']);
         $newCustomProperty->setPropertycategory($customProperty['propertycategory']);
+        $newCustomProperty->setPropertyisrequired($customProperty['propertyisrequired']);
 
         if (!$newCustomProperty->isValid()) {
             throw new CustomPropertyInvalidError();
@@ -73,6 +74,7 @@ class CustomPropertiesController extends Controller
 
         $entity->setPropertyname($customProperty['propertyname']);
         $entity->setPropertylabel($customProperty['propertylabel']);
+        $entity->setPropertyisrequired($customProperty['propertyisrequired']);
 
         if (!$entity->isValid()) {
             throw new CustomPropertyInvalidError();
