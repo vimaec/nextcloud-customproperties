@@ -13789,6 +13789,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13808,6 +13823,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       icon: 'icon-info',
       loading: true,
+      projectNameInput: '',
+      projectName: '',
+      projectNameInputId: 0,
+      clubNameInput: '',
+      clubName: '',
+      clubNameInputId: 0,
+      showCustomNameWarning: false,
       name: t('customproperties', 'Properties'),
       clubproperties: [],
       projectproperties: [],
@@ -13841,6 +13863,53 @@ __webpack_require__.r(__webpack_exports__);
       const url2 = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties?category=Project');
       const res2 = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url2);
       this.projectproperties = res2.data;
+      const url3 = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties?category=ClubName');
+      const res3 = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url3);
+
+      if (res3.data.length > 0) {
+        this.clubNameInput = res3.data[0].propertylabel;
+        this.clubNameInputId = res3.data[0].id;
+        this.clubName = this.clubNameInput;
+      }
+
+      const url4 = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)('/apps/customproperties/customproperties?category=ProjectName');
+      const res4 = await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__.default.get(url4);
+
+      if (res4.data.length > 0) {
+        this.projectNameInput = res4.data[0].propertylabel;
+        this.projectNameInputId = res4.data[0].id;
+        this.projectName = this.projectNameInput;
+      }
+    },
+
+    async updateCustomNames() {
+      if (this.clubNameInput === '' || this.projectNameInput === '') {
+        this.showCustomNameWarning = true;
+        return;
+      }
+
+      const club = {
+        id: this.clubNameInputId,
+        prefix: 'oc',
+        propertycategory: 'ClubName',
+        propertyisrequired: true,
+        propertylabel: this.clubNameInput,
+        propertyname: 'clubname',
+        propertytype: 'text',
+        userId: null
+      };
+      const project = {
+        id: this.projectNameInputId,
+        prefix: 'oc',
+        propertycategory: 'ProjectName',
+        propertyisrequired: true,
+        propertylabel: this.projectNameInput,
+        propertyname: 'projectname',
+        propertytype: 'text',
+        userId: null
+      };
+      await this.updateProperty(club);
+      await this.updateProperty(project);
     },
 
     async deleteProperty(id) {
@@ -23281,7 +23350,71 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "section" }, [
-    _c("h2", [_vm._v("Club Custom Properties")]),
+    _c("h2", [_vm._v("Custom Names")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "input-group" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Name for Club")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.clubNameInput,
+              expression: "clubNameInput"
+            }
+          ],
+          domProps: { value: _vm.clubNameInput },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.clubNameInput = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Name for Project")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.projectNameInput,
+              expression: "projectNameInput"
+            }
+          ],
+          domProps: { value: _vm.projectNameInput },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.projectNameInput = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.showCustomNameWarning
+        ? _c("p", { staticClass: "warning" }, [
+            _vm._v("Custom Names Cannot be Empty")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", [
+        _c("button", { on: { click: _vm.updateCustomNames } }, [
+          _vm._v("Save Custom Names")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h2", [_vm._v(_vm._s(_vm.clubName) + " Custom Properties")]),
     _vm._v(" "),
     _c("p", { staticClass: "settings-hint" }, [
       _vm._v(
@@ -23326,7 +23459,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("h2", [_vm._v("Project Custom Properties")]),
+    _c("h2", [_vm._v(_vm._s(_vm.projectName) + " Custom Properties")]),
     _vm._v(" "),
     _c("p", { staticClass: "settings-hint" }, [
       _vm._v(
@@ -34074,4 +34207,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=be26ed7e67fbb636da3f
+//# sourceMappingURL=src-adminsettings.js.map?v=f4653596f56a8b621094

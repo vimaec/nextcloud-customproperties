@@ -1,6 +1,21 @@
 <template>
 	<section class="section">
-		<h2>Club Custom Properties</h2>
+		<h2>Custom Names</h2>
+		<div class="input-group">
+			<div class="form-group">
+				<label>Name for Club</label>
+				<input v-model="clubNameInput">
+			</div>
+			<div class="form-group">
+				<label>Name for Project</label>
+				<input v-model="projectNameInput">
+			</div>
+			<p v-if="showCustomNameWarning" class="warning">Custom Names Cannot be Empty</p>
+			<div>
+				<button @click="updateCustomNames">Save Custom Names</button>
+			</div>
+		</div>
+		<h2>{{clubName}} Custom Properties</h2>
 		<p class="settings-hint">
 			{{
 				t('customproperties', 'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.')
@@ -21,7 +36,7 @@
 			<EmptyPropertiesPlaceholder v-else />
 		</div>
 
-		<h2>Project Custom Properties</h2>
+		<h2>{{projectName}} Custom Properties</h2>
 		<p class="settings-hint">
 			{{
 				t('customproperties', 'Custom Properties defined here are available to all users. They are shown in "Properties" tab in sidebar view. They can be accessed via WebDAV. Deleting properties will not wipe property values.')
@@ -85,6 +100,13 @@ export default {
 		return {
 			icon: 'icon-info',
 			loading: true,
+			projectNameInput: '',
+			projectName: '',
+			projectNameInputId: 0,
+			clubNameInput: '',
+			clubName: '',
+			clubNameInputId: 0,
+			showCustomNameWarning: false,
 			name: t('customproperties', 'Properties'),
 			clubproperties: [],
 			projectproperties: [],
@@ -115,6 +137,49 @@ export default {
 			const url2 = generateUrl('/apps/customproperties/customproperties?category=Project')
 			const res2 = await axios.get(url2)
 			this.projectproperties = res2.data
+
+			const url3 = generateUrl('/apps/customproperties/customproperties?category=ClubName')
+			const res3 = await axios.get(url3)
+			if (res3.data.length > 0) {
+				this.clubNameInput = res3.data[0].propertylabel
+				this.clubNameInputId = res3.data[0].id
+				this.clubName = this.clubNameInput
+			}
+			const url4 = generateUrl('/apps/customproperties/customproperties?category=ProjectName')
+			const res4 = await axios.get(url4)
+			if (res4.data.length > 0) {
+				this.projectNameInput = res4.data[0].propertylabel
+				this.projectNameInputId = res4.data[0].id
+				this.projectName = this.projectNameInput
+			}
+		},
+		async updateCustomNames() {
+			if (this.clubNameInput === '' || this.projectNameInput === '') {
+				this.showCustomNameWarning = true
+				return
+			}
+			const club = {
+				id: this.clubNameInputId,
+				prefix: 'oc',
+				propertycategory: 'ClubName',
+				propertyisrequired: true,
+				propertylabel: this.clubNameInput,
+				propertyname: 'clubname',
+				propertytype: 'text',
+				userId: null
+			}
+			const project = {
+				id: this.projectNameInputId,
+				prefix: 'oc',
+				propertycategory: 'ProjectName',
+				propertyisrequired: true,
+				propertylabel: this.projectNameInput,
+				propertyname: 'projectname',
+				propertytype: 'text',
+				userId: null
+			}
+			await this.updateProperty(club)
+			await this.updateProperty(project)
 		},
 		async deleteProperty(id) {
 			const url = generateUrl(`/apps/customproperties/customproperties/${id}`)
