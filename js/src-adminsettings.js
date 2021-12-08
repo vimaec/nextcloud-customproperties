@@ -23354,7 +23354,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "input-group" }, [
       _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Name for Club")]),
+        _c("label", [_vm._v("Name for Site: ")]),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -23378,7 +23378,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Name for Project")]),
+        _c("label", [_vm._v("Name for Project: ")]),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -34207,4 +34207,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.prototype.n = _nextcloud_l10n__WEBPACK_
 
 /******/ })()
 ;
-//# sourceMappingURL=src-adminsettings.js.map?v=f4653596f56a8b621094
+//# sourceMappingURL=src-adminsettings.js.map?v=15153fdab96ff782a746

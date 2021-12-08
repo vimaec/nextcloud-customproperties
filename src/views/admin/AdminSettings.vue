@@ -3,11 +3,11 @@
 		<h2>Custom Names</h2>
 		<div class="input-group">
 			<div class="form-group">
-				<label>Name for Club</label>
+				<label>Name for Site: </label>
 				<input v-model="clubNameInput">
 			</div>
 			<div class="form-group">
-				<label>Name for Project</label>
+				<label>Name for Project: </label>
 				<input v-model="projectNameInput">
 			</div>
 			<p v-if="showCustomNameWarning" class="warning">Custom Names Cannot be Empty</p>
