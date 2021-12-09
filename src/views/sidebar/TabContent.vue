@@ -1,7 +1,6 @@
 <template>
 	<div :class="{ 'icon-loading': loading }">
 		<div v-show="!loading">
-			<h3>{{ t('customproperties', 'Custom Properties') }}</h3>
 			<PropertyList :properties="properties.knownProperties" :disabled="disabled" @propertyChanged="updateProperty($event)" />
 			<EmptyPropertiesPlaceholder v-if="properties.knownProperties.length === 0" />
 		</div>

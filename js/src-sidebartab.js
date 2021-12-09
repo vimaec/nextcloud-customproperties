@@ -6948,7 +6948,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -16550,10 +16549,6 @@ var render = function() {
         ]
       },
       [
-        _c("h3", [
-          _vm._v(_vm._s(_vm.t("customproperties", "Custom Properties")))
-        ]),
-        _vm._v(" "),
         _c("PropertyList", {
           attrs: {
             properties: _vm.properties.knownProperties,
@@ -25621,4 +25616,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=src-sidebartab.js.map?v=118ac25699e743928073
+//# sourceMappingURL=src-sidebartab.js.map?v=5796313ee4d914400e26
