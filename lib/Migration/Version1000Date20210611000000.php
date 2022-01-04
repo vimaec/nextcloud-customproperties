@@ -19,9 +19,9 @@ class Version1000Date20210611000000 extends SimpleMigrationStep
     {
         /** @var ISchemaWrapper $schema */
         $schema = $schemaClosure();
-        $table = $schema->getTable('customproperties');
+        //$table = $schema->getTable('customproperties');
 
-        $table->addUniqueIndex(['user_id','propertylabel']);
+        //$table->addUniqueIndex(['user_id','propertylabel']);
 
         return $schema;
     }
