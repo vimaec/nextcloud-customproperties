@@ -28,7 +28,7 @@ class PersonalSettings implements ISettings
     {
         if ($this->userSession->getUser() !== null ){
 
-            if($this->groupManager->isDMSAdmin($this->currentUser->getUID())){
+            if($this->groupManager->isDMSAdmin($this->userSession->getUser()->getUID())){
                 return new TemplateResponse('customproperties', 'settings/personal');
             }
 
